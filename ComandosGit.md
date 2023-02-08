@@ -1,4 +1,4 @@
-## Meus primeiro comandos em [Git](https://git-scm.com/doc)
+## Meus primeiros comandos em [Git](https://git-scm.com/doc)
 * git init (Inicializar o git no meu repositório local)
 * git remote add origin https://github.com/VictorSilva13/Projeto_EngSoftware.git (Faz o link com o repositório remoto que será utilizado)
 * git remote -v (Para conferir se o origin está correto)
