@@ -1,0 +1,13 @@
+{
+    "name": "Our extension!!!",
+    "version": "0.0.1",
+    "description": "Extensão para pessoas focadas",
+    "manifest_version": 3,
+    "author": "Grupo 3 - Engenharia de Software - POLI 2022.2",
+
+    "action": {
+        "default_popup": "index.html",
+        "default_title": "Our Extension"
+    }
+
+}
