@@ -4,4 +4,4 @@
 * git remote -v (Para conferir se o origin está correto)
 * git add (Adiciona alterações na área de staging)
 * git commit -m "MENSAGEM AQUI" (Aqui faz-se o commit das mudanças)
-* git push (Envia as atualizações para o repositório remoto)
+* git push origin main (Envia as atualizações da branch main para o repositório remoto)
