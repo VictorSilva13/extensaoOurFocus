@@ -4,7 +4,17 @@
     "description": "Extensão para pessoas focadas",
     "manifest_version": 3,
     "author": "Grupo 3 - Engenharia de Software - POLI 2022.2",
-
+    "permissions":[
+        "tabs"
+    ],
+    "background":{
+        "service_worker": "background.js"
+    },
+    "icons":{
+        "24": "img/ampulheta-24px.png",
+        "48": "img/ampulheta-48px.png",
+        "96": "img/ampulheta-96px.png"
+    },
     "action": {
         "default_popup": "index.html",
         "default_title": "Our Extension"
