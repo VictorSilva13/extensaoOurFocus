@@ -1,7 +1,7 @@
 chrome.action.setBadgeText({ text: 'ON' });
 chrome.action.setBadgeBackgroundColor({ color: '#4688F1' });
 chrome.action.setPopup({ popup: 'index.html' });
-
+/*
 var contador = 0
 var url = ""
 var id = 0
@@ -56,4 +56,4 @@ async function bloqueadorDeGuias(tab, tabId){
   }else {
     console.log("Você está na aba que selecionou para nunca fecharmos")
   }
-}
+}*/
