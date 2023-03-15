@@ -1,5 +1,5 @@
-chrome.action.setBadgeText({ text: 'ON' });
-chrome.action.setBadgeBackgroundColor({ color: '#4688F1' });
+/*chrome.action.setBadgeText({ text: 'ON' });
+chrome.action.setBadgeBackgroundColor({ color: '#4688F1' });*/
 chrome.action.setPopup({ popup: 'index.html' });
 /*
 var contador = 0
