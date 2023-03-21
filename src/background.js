@@ -3,7 +3,7 @@ var url = ""
 var id = 0
 var isBloqueadorDeGuiaAtivo = false //true para ativado e false para desativado
 
-git
+
 chrome.action.setPopup({ popup: 'index.html' });
 
 
