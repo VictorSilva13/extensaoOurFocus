@@ -1,8 +1,9 @@
 var contador = 0
 var url = ""
 var id = 0
-var estadoBloqueadorDeGuia = 5 //5 para desativado e 10 para ativado
+var isBloqueadorDeGuiaAtivo = false //true para ativado e false para desativado
 
+git
 chrome.action.setPopup({ popup: 'index.html' });
 
 
@@ -10,17 +11,17 @@ chrome.runtime.onMessage.addListener(
   function (request, sender, sendResponse) {
 
     if (request.modo === "bloqueadorAtivado") {
-      estadoBloqueadorDeGuia = 10
+      isBloqueadorDeGuiaAtivo = true
       console.log("Bloqueador ativado!")
 
     } else if (request.modo === "bloqueadorDesativado") {
-      estadoBloqueadorDeGuia = 5
+      isBloqueadorDeGuiaAtivo = false
       contador = 0
       console.log("Bloqueador Desativado!");
 
     } else if (request.pergunta === "estadoBloqueadorFechado") {
 
-      if (estadoBloqueadorDeGuia === 10) {
+      if (isBloqueadorDeGuiaAtivo === true) {
         sendResponse({ estadoAfterClosed: "EstavaAtivado" })
       } else {
         sendResponse({ estadoAfterClosed: "EstavaDesativado" })
@@ -35,7 +36,7 @@ chrome.runtime.onMessage.addListener(
 
 //DISPARA QUANDO UM NOVO URL SURGE
 chrome.tabs.onUpdated.addListener((tabId, window, tab) => {
-  if (estadoBloqueadorDeGuia === 5) {//SE O BLOQUEADOR ESTIVER DESATIVADO
+  if (isBloqueadorDeGuiaAtivo === false) {//SE O BLOQUEADOR ESTIVER DESATIVADO
 
   } else {//SE O BLOQUEADOR ESTIVER ATIVADO
     bloqueadorDeGuias(tab, tabId)
