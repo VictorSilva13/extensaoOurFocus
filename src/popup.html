@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt">
+
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="style.css">
@@ -9,10 +10,22 @@
 
 <body>
 
-    <div>CONTADOR POMODORO AQUI: <br>25:00</div><br><br><br>
-    <input type="button" id="home" value="HOME PAGE">
+    <div class="pomodoro">
+        <br>
+        <h1 id="cronometro">25:00</h1>
+        <button class="iniciar-btn" id="start">Iniciar</button>
+        <button class="desistir-btn" id="giveup">Desistir</button>
+    </div>
+    <script src="pomodoro.js"></script>
+
+
+    <div class="menu">
+        <button class="home-btn" id="home">HOME</button>
+    </div>
+
     <script src="home.js"></script>
 
-    
+
 </body>
+
 </html>

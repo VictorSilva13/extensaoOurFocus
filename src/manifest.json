@@ -14,7 +14,7 @@
         "48": "img/icon_of.png"
     },
     "action": {
-        "default_popup": "index.html",
+        "default_popup": "popup.html",
         "default_title": "Our Focus"
     }
 
