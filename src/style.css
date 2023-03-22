@@ -1,0 +1,43 @@
+html {
+    height: 500px;
+    width: 500px;
+}
+
+body {
+    text-align: center;
+}
+
+button {
+    border: none;
+    height: 3em;
+    color: white;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+.iniciar-btn {
+    background-color: green;
+}
+
+.desistir-btn {
+    background-color: #C4004D;
+}
+
+.home-btn {
+    background-color: black;
+
+}
+
+.pomodoro {
+
+    position: relative;
+    top: 150px;
+
+}
+
+.menu {
+    position: relative;
+    top: 300px;
+}
