@@ -1,45 +1,108 @@
-const iniciar = document.getElementById("start")
-const desistir = document.getElementById("giveup")
-const cronometro = document.getElementById("cronometro")
+let tempo = 25 * 60; //25 minutos de tempo padrão
+let trabalhoTempo = 25 * 60; //25 minutos em segundos
+let pausaCurtaTempo = 5 * 60; //5 minutos em segundos
+let pausaLongaTempo = 15 * 60; //15 minutos em segundos 
 
-iniciar.addEventListener("click", fnStart)
-desistir.addEventListener("click", fnStop)
+let intervalo; //Variável para armazenar o intervalo do temporizador
+let ciclos = 1; //Variável para contabilizar o ciclo atual
 
-var sec = 60
-var min = 24
-var interval
+let iniciado = false; //Variável para verificar se o temporizador foi iniciado
+let emPausa = false; //Variável para verificar se está no momento de pausa
 
-function fnStart() {
-    interval = setInterval(clock, 1000)
-}
+const temporizador = document.getElementById("cronometro");
+const iniciarBotao = document.getElementById("start");
+const pararBotao = document.getElementById("giveup");
 
-function fnStop() {
-    cronometro.innerText = "25:00"
-    clearInterval(interval)
-    sec = 60
-    min = 24
-}
+// Início - Pomodoro personalizado
+const inputTrabalho = document.getElementById("trabalhoTempoPersonalizado");
+const inputPausaCurta = document.getElementById("pausaCurtaTempoPersonalizado");
+const inputPausaLonga = document.getElementById("pausaLongaTempoPersonalizado");
+const enviarBotao = document.getElementById("sendPomodoro");
 
-function clock() {
-    sec--
+enviarBotao.addEventListener("click", pomodoroPersonalizado);
 
-    if (sec < 10) {
-        sec = "0" + sec
-    }
+function pomodoroPersonalizado() {
 
-    if (sec === "0" + 0) {
-        min--
-        sec = 59
+    const minutosTrabalho = parseInt(inputTrabalho.value);
+    const minutosPausaCurta = parseInt(inputPausaCurta.value);
+    const minutosPausaLonga = parseInt(inputPausaLonga.value);
 
-        if (min < 10) {
-            min = "0" + min
+    if (!isNaN(minutosTrabalho) && minutosTrabalho <= 50) {
+        tempo = minutosTrabalho * 60;
+        trabalhoTempo = minutosTrabalho * 60;
+        temporizador.innerHTML = `${minutosTrabalho}:00`;
+    }else{
+        if(minutosTrabalho > 50){
+            alert("Pomodoro não faz sentido dessa maneira!");
         }
     }
 
-    cronometro.innerText = min + ":" + sec
+    if (!isNaN(minutosPausaCurta)) {
+        pausaCurtaTempo = minutosPausaCurta * 60;
+    }
 
-    if (min === "0" + -1) {
-        cronometro.innerText = "Tempo de pausa" //FALTA ADICIONAR CRONOMETRO PARA PAUSAS
-        clearInterval(interval)
+    if (!isNaN(minutosPausaLonga)) {
+        pausaLongaTempo = minutosPausaLonga * 60;
+    }
+
+}
+//Fim - Pomodoro personalizado
+
+function atualizarTemporizador() {
+    const minutos = Math.floor(tempo / 60);
+    const segundos = tempo % 60;
+
+    //Adiciona um zero à esquerda dos segundos (quando menores que 10)
+    const segundosFormatados = segundos < 10 ? "0" + segundos : segundos;
+
+    temporizador.innerHTML = `${minutos}:${segundosFormatados}`;
+
+    if (tempo === 0) {
+        clearInterval(intervalo);
+        if (!emPausa) { //Acabou o trabalho
+            emPausa = true;
+
+            if (ciclos % 4 === 0) {
+                console.log("Devo adicionar uma pausa maior agora!");
+                tempo = pausaLongaTempo;
+            } else {
+                console.log("A pausa será a mínima");
+                tempo = pausaCurtaTempo;
+            }
+
+            alert("Hora da pausa!");
+        } else { //Acabou a pausa
+            emPausa = false;
+            tempo = trabalhoTempo;
+            ciclos++;
+            alert("Hora de trabalhar!");
+        }
+        intervalo = setInterval(atualizarTemporizador, 1000);
+    } else {
+        tempo--;
     }
 }
+
+iniciarBotao.addEventListener("click", function () {
+    if (!iniciado) {
+        intervalo = setInterval(atualizarTemporizador, 1000);
+        iniciado = true;
+    }
+});
+
+pararBotao.addEventListener("click", function () {
+    clearInterval(intervalo);
+    alert("Desistir não irá salvar seu progresso e o cronômetro irá reiniciar!");
+    if (emPausa === true) {
+        console.log("O tempo de pausa é de grande importância para que você tenha sucesso");
+        tempo = pausaCurtaTempo;
+
+    } else {
+        console.log("Não pause o seu trabalho!!!");
+        emPausa = false;
+        tempo = trabalhoTempo;
+    }
+    iniciado = false;
+
+    atualizarTemporizador();
+});

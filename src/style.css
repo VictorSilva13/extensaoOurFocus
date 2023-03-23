@@ -5,6 +5,7 @@ html {
 
 body {
     text-align: center;
+    
 }
 
 button {
@@ -26,8 +27,14 @@ button:hover {
 }
 
 .home-btn {
-    background-color: black;
+    background-color: rgb(55, 35, 151);
 
+}
+
+.bloqueador-btn{
+    background-color: aqua;
+    position: relative;
+    top: -300px;
 }
 
 .pomodoro {
@@ -35,6 +42,15 @@ button:hover {
     position: relative;
     top: 150px;
 
+}
+
+.pomodoro-personalizado{
+    position: relative;
+    top: 200px;
+}
+
+.enviarPomodoro-btn{
+    background-color: darkgreen;
 }
 
 .menu {
