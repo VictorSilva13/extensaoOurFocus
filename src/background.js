@@ -34,7 +34,7 @@ chrome.runtime.onMessage.addListener(
   }
 );
 
-//DISPARA QUANDO UM NOVO URL SURGE
+//DISPARA QUANDO UM NOVO URL SURGE OU AO RECARREGAR PÁGINA
 chrome.tabs.onUpdated.addListener((tabId, window, tab) => {
   if (isBloqueadorDeGuiaAtivo === false) {//SE O BLOQUEADOR ESTIVER DESATIVADO
 

@@ -28,13 +28,20 @@ button:hover {
 
 .home-btn {
     background-color: rgb(55, 35, 151);
-
+    position: relative;
+    top: 200px;
 }
 
 .bloqueador-btn{
-    background-color: aqua;
-    position: relative;
-    top: -300px;
+    background-color: rgb(51, 0, 238);
+}
+
+.blocklist-btn{
+    background-color: rgb(92, 92, 216);
+}
+
+.whitelist-btn{
+    background-color: rgb(156, 156, 251);
 }
 
 .pomodoro {
