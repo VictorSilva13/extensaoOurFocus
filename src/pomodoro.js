@@ -7,46 +7,14 @@ let intervalo; //Variável para armazenar o intervalo do temporizador
 let ciclos = 1; //Variável para contabilizar o ciclo atual
 
 let iniciado = false; //Variável para verificar se o temporizador foi iniciado
-let emPausa = false; //Variável para verificar se está no momento de pausa
+let momentoPausa = false; //Variável para verificar se está no momento de pausa
+
+let tempoPausado; //Assume o valor de tempo quando o cronômetro é pausado
 
 const temporizador = document.getElementById("cronometro");
 const iniciarBotao = document.getElementById("start");
+const pausarBotao = document.getElementById("pause");
 const pararBotao = document.getElementById("giveup");
-
-// Início - Pomodoro personalizado
-const inputTrabalho = document.getElementById("trabalhoTempoPersonalizado");
-const inputPausaCurta = document.getElementById("pausaCurtaTempoPersonalizado");
-const inputPausaLonga = document.getElementById("pausaLongaTempoPersonalizado");
-const enviarBotao = document.getElementById("sendPomodoro");
-
-enviarBotao.addEventListener("click", pomodoroPersonalizado);
-
-function pomodoroPersonalizado() {
-
-    const minutosTrabalho = parseInt(inputTrabalho.value);
-    const minutosPausaCurta = parseInt(inputPausaCurta.value);
-    const minutosPausaLonga = parseInt(inputPausaLonga.value);
-
-    if (!isNaN(minutosTrabalho) && minutosTrabalho <= 50) {
-        tempo = minutosTrabalho * 60;
-        trabalhoTempo = minutosTrabalho * 60;
-        temporizador.innerHTML = `${minutosTrabalho}:00`;
-    }else{
-        if(minutosTrabalho > 50){
-            alert("Pomodoro não faz sentido dessa maneira!");
-        }
-    }
-
-    if (!isNaN(minutosPausaCurta)) {
-        pausaCurtaTempo = minutosPausaCurta * 60;
-    }
-
-    if (!isNaN(minutosPausaLonga)) {
-        pausaLongaTempo = minutosPausaLonga * 60;
-    }
-
-}
-//Fim - Pomodoro personalizado
 
 function atualizarTemporizador() {
     const minutos = Math.floor(tempo / 60);
@@ -59,8 +27,8 @@ function atualizarTemporizador() {
 
     if (tempo === 0) {
         clearInterval(intervalo);
-        if (!emPausa) { //Acabou o trabalho
-            emPausa = true;
+        if (!momentoPausa) { //Acabou o trabalho
+            momentoPausa = true;
 
             if (ciclos % 4 === 0) {
                 console.log("Devo adicionar uma pausa maior agora!");
@@ -72,7 +40,7 @@ function atualizarTemporizador() {
 
             alert("Hora da pausa!");
         } else { //Acabou a pausa
-            emPausa = false;
+            momentoPausa = false;
             tempo = trabalhoTempo;
             ciclos++;
             alert("Hora de trabalhar!");
@@ -85,21 +53,35 @@ function atualizarTemporizador() {
 
 iniciarBotao.addEventListener("click", function () {
     if (!iniciado) {
+        if(tempoPausado == tempo){
+            tempo = tempoPausado;
+        }
         intervalo = setInterval(atualizarTemporizador, 1000);
         iniciado = true;
+    }else{
+        if(tempoPausado == tempo){
+            tempo = tempoPausado;
+            intervalo = setInterval(atualizarTemporizador, 1000);
+            iniciado = true;
+        }
     }
+});
+
+pausarBotao.addEventListener("click", function () {
+    tempoPausado = tempo;
+    clearInterval(intervalo);
 });
 
 pararBotao.addEventListener("click", function () {
     clearInterval(intervalo);
     alert("Desistir não irá salvar seu progresso e o cronômetro irá reiniciar!");
-    if (emPausa === true) {
+    if (momentoPausa === true) {
         console.log("O tempo de pausa é de grande importância para que você tenha sucesso");
         tempo = pausaCurtaTempo;
 
     } else {
         console.log("Não pause o seu trabalho!!!");
-        emPausa = false;
+        momentoPausa = false;
         tempo = trabalhoTempo;
     }
     iniciado = false;
