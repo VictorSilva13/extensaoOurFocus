@@ -3,12 +3,15 @@ const messagemInicial = document.getElementById("opcaoAtivada");
 
 
 const botaoMostrarBlockList = document.getElementById("blocklist");
-const campoInputBlockList = document.getElementById("campo-input-blocklist");
+const abaBlockList = document.getElementById("aba-blockList");
 const textInputBlockList = document.getElementById("entradaBlockList");
 const sendBlockList = document.getElementById("enviar");
 
+//Tabela do popup na aba blocklist
+const tabelaBlockList = document.getElementById("tabela-blockList");
+
 var urlsBlockList = [];
-var temosUrls = false; 
+var temosUrls = false;
 
 sendBlockList.addEventListener("click", addUrl);
 bloqueador.addEventListener("click", fnBlockTabs);
@@ -45,25 +48,28 @@ async function addUrl() {
         if (urlsBlockList.length === 0) { //SIGNIFICA QUE AINDA NÃO ATIVOU A FUNCIONALIDADE OU QUE HOUVE UM FECHAMENTO 
             chrome.runtime.sendMessage({ pergunta: "listaBlockList" }, function (response) {
                 if (response.devolverUrls != "vazio") {
-                   temosUrls = true;
-                   urlsBlockList = response.devolverUrls;
-                }else{
+                    temosUrls = true;
+                    urlsBlockList = response.devolverUrls;
+                } else {
                     temosUrls = false;
                 }
             });
 
-            if(temosUrls === true){
+            if (temosUrls === true) {
                 console.log("Eles tem urls guardados");
                 console.log(urlsBlockList);
-            }else{
+            } else {
                 console.log("Primeira visita!");
                 urlsBlockList.push(textInputBlockList.value);
+                listarNovoSite(textInputBlockList.value); //edicao
 
             }
 
 
         } else {
             urlsBlockList.push(textInputBlockList.value);
+            listarNovoSite(textInputBlockList.value); //edicao
+
         }
 
         chrome.runtime.sendMessage({ modo: "blockListAtivado", urls: urlsBlockList });
@@ -72,17 +78,38 @@ async function addUrl() {
     }
 
     textInputBlockList.value = "";
-    
+
 }
 
+//Carrega a lista de sites da variavel UrlsBlockList
+const carregarLista = () => {
+       urlsBlockList.forEach(site => {
+        listarNovoSite(site);
+       });
+        
+}
+
+//Mostra novo site dentro da tabela do popup na aba BlockList
+const listarNovoSite = (site) => {
+    const linha = document.createElement("tr");
+    const coluna = document.createElement("th");
+
+    const text = document.createTextNode(site);
+    coluna.appendChild(text);
+    linha.appendChild(coluna);
+    tabelaBlockList.appendChild(linha);
+
+}
 
 //ADICIONAR UM OUVINTE DE EVENTO DE CLIQUE AO BOTÃO
 botaoMostrarBlockList.addEventListener("click", function () {
     //EXIBIR OU OCULTAR O CAMPO DE ENTRADA
-    if (campoInputBlockList.style.display === "none") {
-        campoInputBlockList.style.display = "block";
+    if (abaBlockList.style.display === "none") {
+        abaBlockList.style.display = "block";
+        
     } else {
-        campoInputBlockList.style.display = "none";
+        abaBlockList.style.display = "none";
     }
+    carregarLista;
 });
 
