@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.min.css">
     <title>Home Page</title>
 </head>
 <body>
@@ -13,24 +14,16 @@
         <br>
         <h1 id="cronometro">25:00</h1>
         <button class="iniciar-btn" id="start">Iniciar</button>
+        <button class="pausar-btn" id="pause">Pausar</button>
         <button class="desistir-btn" id="giveup">Desistir</button>
     </div>
 
-    <div class="pomodoro-personalizado">
-        <h3>Minutos de foco</h3>
-        <input type="number" id="trabalhoTempoPersonalizado">
-        <h3>Pausa curta</h3>
-        <input type="number" id="pausaCurtaTempoPersonalizado">
-        <h3>Pausa longa</h3>
-        <input type="number" id="pausaLongaTempoPersonalizado">
-        <br>
-        <br>
-        <button class="enviarPomodoro-btn" id="sendPomodoro">Personalizar Pomodoro</button>
-
+    <div class="try-2">
+        <button class="pomodoro2-btn" id="p2.0">Experimentar Pomodoro 2.0</button>
     </div>
 
     <script src="pomodoro.js"></script>
-
+    <script src="sweetalert2.min.js"></script>
     
     
 </body>
