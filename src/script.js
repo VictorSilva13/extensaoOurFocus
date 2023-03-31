@@ -97,15 +97,15 @@ var contadorBL = -1;
 //ADICIONAR UM OUVINTE DE EVENTO DE CLIQUE AO BOTÃO
 botaoMostrarBlockList.addEventListener("click", function () {
 
+    contadorBL++;
     chrome.runtime.sendMessage({ pergunta: "listaBlockList" }, function (response) {
         if (response.devolverUrls != "vazio") {
             temosUrls = true;
             urlsBlockList = response.devolverUrls;
-            if (contadorBL === -1) {
+            if (contadorBL === 0) {
                 urlsBlockList.forEach(element => {
                     listarNovoSite(element)
                 });
-                contadorBL++;
             }
 
         } else {
