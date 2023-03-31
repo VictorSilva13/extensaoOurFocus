@@ -58,6 +58,18 @@ button:hover {
 
 }
 
+.try-2 {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+.pomodoro2-btn{
+    background-color: black;
+}
+
 .menu {
     position: relative;
     top: 300px;
