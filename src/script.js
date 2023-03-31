@@ -10,6 +10,26 @@ const sendBlockList = document.getElementById("enviar");
 //Tabela do popup na aba blocklist
 const tabelaBlockList = document.getElementById("tabela-blockList");
 
+//Carrega a lista de sites da variavel UrlsBlockList
+const carregarLista = () => {
+    urlsBlockList.forEach(site => {
+        listarNovoSite(site);
+    });
+
+}
+
+//Mostra novo site dentro da tabela do popup na aba BlockList
+const listarNovoSite = (site) => {
+    const linha = document.createElement("tr");
+    const coluna = document.createElement("th");
+
+    const text = document.createTextNode(site);
+    coluna.appendChild(text);
+    linha.appendChild(coluna);
+    tabelaBlockList.appendChild(linha);
+
+}
+
 var urlsBlockList = [];
 var temosUrls = false;
 
@@ -46,18 +66,9 @@ function fnBlockTabs() {
 async function addUrl() {
     if (textInputBlockList.value.length > 2) {
         if (urlsBlockList.length === 0) { //SIGNIFICA QUE AINDA NÃO ATIVOU A FUNCIONALIDADE OU QUE HOUVE UM FECHAMENTO 
-            chrome.runtime.sendMessage({ pergunta: "listaBlockList" }, function (response) {
-                if (response.devolverUrls != "vazio") {
-                    temosUrls = true;
-                    urlsBlockList = response.devolverUrls;
-                } else {
-                    temosUrls = false;
-                }
-            });
 
             if (temosUrls === true) {
                 console.log("Eles tem urls guardados");
-                console.log(urlsBlockList);
             } else {
                 console.log("Primeira visita!");
                 urlsBlockList.push(textInputBlockList.value);
@@ -81,35 +92,32 @@ async function addUrl() {
 
 }
 
-//Carrega a lista de sites da variavel UrlsBlockList
-const carregarLista = () => {
-       urlsBlockList.forEach(site => {
-        listarNovoSite(site);
-       });
-        
-}
-
-//Mostra novo site dentro da tabela do popup na aba BlockList
-const listarNovoSite = (site) => {
-    const linha = document.createElement("tr");
-    const coluna = document.createElement("th");
-
-    const text = document.createTextNode(site);
-    coluna.appendChild(text);
-    linha.appendChild(coluna);
-    tabelaBlockList.appendChild(linha);
-
-}
+var contadorBL = -1;
 
 //ADICIONAR UM OUVINTE DE EVENTO DE CLIQUE AO BOTÃO
 botaoMostrarBlockList.addEventListener("click", function () {
+
+    chrome.runtime.sendMessage({ pergunta: "listaBlockList" }, function (response) {
+        if (response.devolverUrls != "vazio") {
+            temosUrls = true;
+            urlsBlockList = response.devolverUrls;
+            if (contadorBL === -1) {
+                urlsBlockList.forEach(element => {
+                    listarNovoSite(element)
+                });
+                contadorBL++;
+            }
+
+        } else {
+            temosUrls = false;
+        }
+    });
     //EXIBIR OU OCULTAR O CAMPO DE ENTRADA
     if (abaBlockList.style.display === "none") {
         abaBlockList.style.display = "block";
-        
+
     } else {
         abaBlockList.style.display = "none";
     }
-    carregarLista;
 });
 
