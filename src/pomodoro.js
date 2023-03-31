@@ -66,6 +66,9 @@ function atualizarTemporizador() {
 }
 
 iniciarBotao.addEventListener("click", function () {
+    
+    pomodoro2.style.display = "none";
+
     if (!iniciado) {
         if (tempoPausado == tempo) {
             tempo = tempoPausado;
@@ -97,6 +100,7 @@ desistirBotao.addEventListener("click", async function desistir() {
     // Realiza ação com base na escolha do usuário
     if (escolha === 'opcao1') {
         clearInterval(intervalo);
+        pomodoro2.style.display = "block";
         console.log("DESISTIU");
         if (momentoPausa === true) {
             console.log("O tempo de pausa é de grande importância para que você tenha sucesso");
