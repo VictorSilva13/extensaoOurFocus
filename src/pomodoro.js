@@ -21,7 +21,7 @@ const iniciarBotao = document.getElementById("start");
 const pausarBotao = document.getElementById("pause");
 const desistirBotao = document.getElementById("giveup");
 const pomodoro2 = document.getElementById("p2.0");
-
+const audioNotificacao = document.getElementById("notificacao");
 
 
 function atualizarTemporizador() {
@@ -34,6 +34,7 @@ function atualizarTemporizador() {
     temporizador.innerHTML = `${minutos}:${segundosFormatados}`;
 
     if (tempo === 0) {
+        audioNotificacao.play();
         clearInterval(intervalo);
         if (!momentoPausa) { //Acabou o trabalho
             momentoPausa = true;
@@ -47,8 +48,10 @@ function atualizarTemporizador() {
                 tempo = pausaCurtaTempo;
                 isPausaLonga = false;
             }
-
-            alert("Hora da pausa!");
+            setTimeout(() => {
+                alert("Hora da pausa!");
+            }, 1000);
+            
 
         } else { //Acabou a pausa
             momentoPausa = false;
@@ -57,7 +60,9 @@ function atualizarTemporizador() {
             tempo = trabalhoTempo;
             ciclos++;
 
-            alert("Hora de trabalhar!");
+            setTimeout(() => {
+                alert("Hora de trabalhar!");
+            }, 1000);
         }
         intervalo = setInterval(atualizarTemporizador, 1000);
     } else {
