@@ -103,9 +103,14 @@ button:hover {
 }
 
 .pomodoro {
-    position: flex;
-    gap: 50px;
+
     flex-direction: column;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    gap: 30px;
 }
 
 .try-2 {
@@ -115,6 +120,7 @@ button:hover {
 
 .pomodoro2-btn {
     background-color: black;
+    position: flex;
 }
 
 .menu {

@@ -11,7 +11,10 @@
 .logomarca {
     width: 240px;
     height: auto;
-    margin: 20px;
+    margin: 0px;
+    padding-bottom: 10px;
+    display: flex;
+    align-self: center;
 
 }
 
@@ -126,11 +129,11 @@
 
 #campo-input-blocklist {
     padding-bottom: 10px;
-    
+
 }
 
-#entradaBlockList{
-    
+#entradaBlockList {
+
     font-family: 'Inter';
     font-style: normal;
     font-weight: 400;
@@ -162,12 +165,12 @@
     font-weight: 100;
 }
 
-#tabela-blockList #linha{
+#tabela-blockList #linha {
     font-family: 'Inter', sans-serif;
     font-size: 10px;
     color: #25282B;
     justify-content: center;
-    
+
 
 }
 
@@ -189,11 +192,27 @@ button {
 
 }
 
-button:hover {
+button:ver {
     cursor: pointer;
 }
 
 .menu {
-    position: relative;
-    top: 300px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-top: 20px;
+    gap: 200px;
+}
+
+.home-btn,
+.sair-btn {
+    display: flex;
+    background-color: white;
+}
+
+
+#imgSair,
+#imgHome {
+    width: 18px;
+    height: auto;
 }
