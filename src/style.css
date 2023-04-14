@@ -1,11 +1,7 @@
-html {
-    height: 500px;
-    width: 500px;
-}
+
 
 body {
     text-align: center;
-
 }
 
 button {
@@ -30,12 +26,6 @@ button:hover {
     background-color: #C4004D;
 }
 
-.home-btn {
-    background-color: rgb(55, 35, 151);
-    position: relative;
-    top: 200px;
-}
-
 .bloqueador-btn {
     background-color: rgb(51, 0, 238);
 }
@@ -49,13 +39,10 @@ button:hover {
 }
 
 .pomodoro {
-
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-
-
 }
 
 .try-2 {
@@ -66,7 +53,7 @@ button:hover {
 }
 
 
-.pomodoro2-btn{
+.pomodoro2-btn {
     background-color: black;
 }
 
