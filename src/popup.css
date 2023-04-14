@@ -1,0 +1,192 @@
+/*POPUP */
+
+.popup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px 0px;
+}
+
+.logomarca {
+    width: 273px;
+    height: 71px;
+}
+
+.configuracaoFoco {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 5px 5px;
+    gap: 30px;
+    width: auto;
+}
+
+.configuracaoFoco .botoes .separador {
+    font-size: 15px;
+    margin-bottom: 5px;
+    color: #838383;
+
+}
+
+html,
+body {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+}
+
+.textoModoConfiguracao {
+
+    width: 151px;
+    height: 20px;
+    align-items: center;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 17px;
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.configuracaoFoco .botoes {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 0px;
+    isolation: isolate;
+
+    width: 330px;
+    height: 20px;
+
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+
+    -moz-box-sizing: inherit;
+    box-sizing: inherit;
+    -webkit-transition-property: all;
+    transition-property: all;
+    -webkit-transition-duration: .6s;
+    transition-duration: .6s;
+    -webkit-transition-timing-function: ease;
+    transition-timing-function: ease;
+
+}
+
+
+.configuracaoFoco .botoes .bloqueador-btn,
+.configuracaoFoco .botoes .blocklist-btn,
+.configuracaoFoco .botoes .whitelist-btn {
+    background-color: white;
+    color: #838383;
+    letter-spacing: 0;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+
+
+}
+
+.configuracaoFoco .botoes .bloqueador-btn:after,
+.configuracaoFoco .botoes .bloqueador-btn:before,
+.configuracaoFoco .botoes .blocklist-btn:after,
+.configuracaoFoco .botoes .blocklist-btn:before,
+.configuracaoFoco .botoes .whitelist-btn:after,
+.configuracaoFoco .botoes .whitelist-btn:before {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border: 1px solid white;
+    bottom: 0px;
+    content: " ";
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    -webkit-transition: all 280ms ease-in-out;
+    transition: all 280ms ease-in-out;
+    width: 0;
+}
+
+
+.configuracaoFoco .botoes .bloqueador-btn:hover:after,
+.configuracaoFoco .botoes .bloqueador-btn:hover:before,
+.configuracaoFoco .botoes .blocklist-btn:hover:after,
+.configuracaoFoco .botoes .blocklist-btn:hover:before,
+.configuracaoFoco .botoes .whitelist-btn:hover:after,
+.configuracaoFoco .botoes .whitelist-btn:hover:before {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-color: #6425FE;
+    -webkit-transition: width 350ms ease-in-out;
+    transition: width 350ms ease-in-out;
+    width: 100%;
+
+}
+
+.configuracaoFoco .botoes .bloqueador-btn:hover:before,
+.configuracaoFoco .botoes .blocklist-btn:hover:before,
+.configuracaoFoco .botoes .whitelist-btn:hover:before {
+    bottom: auto;
+    top: 0;
+    width: 100%;
+}
+
+.configuracaoFoco .botoes .bloqueador-btn:active,
+.configuracaoFoco .botoes .bloqueador-btn:hover,
+.configuracaoFoco .botoes .bloqueador-btn:focus,
+.configuracaoFoco .botoes .bloqueador-btn:hover,
+.configuracaoFoco .botoes .blocklist-btn:active,
+.configuracaoFoco .botoes .blocklist-btn:hover,
+.configuracaoFoco .botoes .blocklist-btn:focus,
+.configuracaoFoco .botoes .whitelist-btn:active,
+.configuracaoFoco .botoes .whitelist-btn:hover,
+.configuracaoFoco .botoes .whitelist-btn:focus {
+    border-color: #6425FE;
+    color: #6425FE;
+    letter-spacing: 3px;
+}
+
+html {
+    height: 500px;
+    width: 500px;
+    border-radius: 10px;
+    background: #FFFFFF;
+}
+
+
+body {
+    text-align: center;
+}
+
+button {
+    border: none;
+    height: 3em;
+    color: white;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+/*.home-btn {
+    background-color: rgb(55, 35, 151);
+    position: relative;
+    top: 200px;
+}*/
+
+.menu {
+    position: relative;
+    top: 300px;
+}

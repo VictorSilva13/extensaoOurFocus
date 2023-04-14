@@ -5,7 +5,8 @@
     "manifest_version": 3,
     "author": "Grupo 3 - Engenharia de Software - POLI 2022.2",
     "permissions":[
-        "tabs"
+        "tabs",
+        "storage"
     ],
     "background":{
         "service_worker": "background.js"

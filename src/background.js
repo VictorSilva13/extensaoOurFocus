@@ -4,6 +4,9 @@ var id = 0
 var isBloqueadorDeGuiaAtivo = false //true para ativado e false para desativado
 var isBlockListAtivo = false
 var listaUrls = [];
+var listaSabotage = [];
+let updated = false;
+obterDadosArmazenados();
 
 chrome.action.setPopup({ popup: 'popup.html' });
 
@@ -47,7 +50,7 @@ chrome.runtime.onMessage.addListener(
     } else if (request.modo === "blockListDesativado") { //FALTA ADICIONAR ESSE MODO NO SCRIPT.JS
       isBloqueadorDeGuiaAtivo = false;
       isBlockListAtivo = false;
-    
+
     } else if (request.pergunta === "listaBlockList") {
 
       if (listaUrls.length === 0) { //NÃO TEMOS URLS ARMAZENADOS NO BACKGROUND
@@ -57,21 +60,43 @@ chrome.runtime.onMessage.addListener(
       }
 
     }
+    if (request.action == "getSelfSabotage") { //O SOLICITANTE QUER RECEBER A LISTA DO SABOTAGE
+      sendResponse({ retorno: listaSabotage });
+    }
+
+
   }
 );
 
-//DISPARA QUANDO UM NOVO URL SURGE OU AO RECARREGAR PÁGINA
-chrome.tabs.onUpdated.addListener((tabId, window, tab) => {
-  if (isBloqueadorDeGuiaAtivo === true) {//SE O BLOQUEADOR ESTIVER ATIVADO
-    bloqueadorDeGuias(tab, tabId);
-  } else {
-    if (isBlockListAtivo === true) {
-      executarBlockList(listaUrls, tab);
-    } else {
 
-    }
+
+//EVENTO QUE DISPARA SE HOUVER ALGUMA ALTERAÇÃO NO STORAGE LOCAL
+chrome.storage.onChanged.addListener(function (changes, areaName) {
+  if (areaName === "local") {
+    obterDadosArmazenados();
   }
+});
 
+
+
+
+chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+  if (!updated && changeInfo.status === 'complete') {
+    if (isBloqueadorDeGuiaAtivo === true) {//SE O BLOQUEADOR ESTIVER ATIVADO
+      bloqueadorDeGuias(tab, tabId);
+  
+    } else {
+      if (isBlockListAtivo === true) {
+        executarBlockList(listaUrls, tab);
+      } else {
+  
+      }
+    }
+    updated = true;
+    setTimeout(function() {
+      updated = false;
+    }, 2500);
+  }
 });
 
 
@@ -98,10 +123,6 @@ async function bloqueadorDeGuias(tab, tabId) {
     contador++
   }
 
-  console.log(contador)
-  console.log(url)
-  console.log(id)
-
   if (tab.url.includes("extension")) {
 
     console.log("Você está na aba de extensões");
@@ -112,19 +133,64 @@ async function bloqueadorDeGuias(tab, tabId) {
 
   } else if (tab.url != url) {
     console.log("Está tentando acessar um URL diferente do armazenado em url")
-    chrome.tabs.remove(tabId)
+    //AQUI ELE DEVE SALVAR O URL DA SABOTAGEM!
+    armazenarURL(tab.url);
+
+    setTimeout(function () {
+      chrome.tabs.remove(tabId);
+    }, 1000);
+
   } else {
     console.log("Você está na aba que selecionou para nunca fecharmos")
   }
+
+
 }
 
 //FUNÇÃO PARA BLOCK LIST
 function executarBlockList(lista, tab) {
-  if(listaUrls.length != 0){
+  if (listaUrls.length != 0) {
     for (let index = 0; index < lista.length; index++) {
-      if(tab.url.includes(lista[index])){
-        chrome.tabs.remove(tab.id)
+      if (tab.url.includes(lista[index])) {
+        setTimeout(function () {
+          chrome.tabs.remove(tab.id);
+        }, 1000);
       }
     }
   }
+}
+
+
+//FUNÇÃO PARA ARMAZENAR URLs DO SELF-SABOTAGE
+function armazenarURL(url) {
+  chrome.storage.local.get(url, function (resultado) {
+
+    let dadosSabotagem = {};
+    let nAcessos;
+    console.log("RESULTADO:");
+    console.log(resultado[url] > 0);
+    //SE O URL JÁ EXISTIR, APENAS ADICIONA MAIS UM ACESSO
+    if (resultado[url] > 0) {
+      nAcessos = resultado[url] + 1;
+    } else { //SE O URL NÃO EXISTIR NO STORAGE, ELE CRIA E DÁ O PRIMEIRO ACESSO
+      nAcessos = 1;
+    }
+
+    dadosSabotagem[url] = nAcessos;
+
+    chrome.storage.local.set(dadosSabotagem);
+  });
+}
+
+
+
+function obterDadosArmazenados() { //FUNÇÃO QUE ATUALIZA O VALOR DE listaSabotage PARA O QUE TEM NO STORAGE
+  listaSabotage = [];
+  chrome.storage.local.get(null, function (resultado) {
+    for (let url in resultado) {
+      let nAcessos = resultado[url];
+      listaSabotage.push({ url: url, nAcessos: nAcessos });
+    }
+    console.log(listaSabotage);
+  });
 }
