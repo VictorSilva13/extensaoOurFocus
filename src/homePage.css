@@ -1,0 +1,136 @@
+
+
+#container {
+    display: inline-block;
+    position: relative;
+  }
+  
+  #container figcaption {
+    position: absolute;
+    top: 110px;
+    right: 60px;
+
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 55px;
+    line-height: 32px;
+
+    text-align: center;
+    letter-spacing: 2px;
+
+    color: #070417;
+  }
+
+body {
+    text-align: center;
+}
+
+button {
+    border: none;
+    height: 3em;
+    color: white;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+.pomodoro .botoes {
+    flex-direction: column;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    gap: 15px;
+
+}
+
+
+.iniciar-btn {
+    width: 252px;
+    height: 60px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 20px;
+
+    text-align: center;
+
+    color: #6425FE;
+
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.pausar-btn {
+    width: 252px;
+    height: 60px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 20px;
+    background-color: gray;
+}
+
+.desistir-btn {
+    width: 252px;
+    height: 60px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 20px;
+
+    background-color: #C4004D;
+}
+
+.bloqueador-btn {
+    background-color: rgb(51, 0, 238);
+}
+
+.blocklist-btn {
+    background-color: rgb(92, 92, 216);
+}
+
+.whitelist-btn {
+    background-color: rgb(156, 156, 251);
+}
+
+.pomodoro {
+    position: flex;
+    gap: 50px;
+    flex-direction: column;
+}
+
+.try-2 {
+    position: flex;
+}
+
+
+.pomodoro2-btn {
+    background-color: black;
+}
+
+.menu {
+    position: relative;
+}
+
+.enviarLista {
+    background-color: rgb(255, 125, 125);
+
+}
+
+.tabela-sabotage {
+    width: '100%';
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 14px;
+    border-collapse: collapse;
+    margin-top: 20px;
+
+}

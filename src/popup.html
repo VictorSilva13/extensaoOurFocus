@@ -16,9 +16,7 @@
     <script src="home.js"></script>
     <div class="popup">
         <img class="logomarca" src="img/logomarca.png" alt="Our Focus">
-        <div class="configuracaoFoco">
-            <div class="textoModoConfiguracao">Modo de configuração</div>
-            <div class="botoes">
+        <div class="botoes">
                 <button class="bloqueador-btn" id="bloquear">Bloquear Guia</button>
                 <div class="separador">|</div>
                 <button class="blocklist-btn" id="blocklist">Block List</button>
@@ -26,17 +24,14 @@
                 <button class="whitelist-btn" id="whitelist">White List</button>
 
             </div>
-        </div>
     </div>
-    <br>
-    <br>
     <div id="aba-blockList" style="display: none;">
         <div id="campo-input-blocklist">
             <input type="text" id="entradaBlockList" placeholder="Ex: instagram.com">
             <button class="enviarLista" id="enviar">Enviar</button>
         </div>
         <table id="tabela-blockList">
-            <tr>
+            <tr id="linha">
                 <th>Site</th>
                 <th>Classificação</th>
                 <th>Ação</th>

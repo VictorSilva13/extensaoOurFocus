@@ -23,8 +23,12 @@ const listarNovoSite = (site) => {
     const linha = document.createElement("tr");
     const coluna = document.createElement("th");
 
+    //var botao = document.createElement("button");
+    //botao.style.background='url(img/lixo.png)';
+
     const text = document.createTextNode(site);
     coluna.appendChild(text);
+    coluna.appendChild(imgLixo);
     linha.appendChild(coluna);
     tabelaBlockList.appendChild(linha);
 
@@ -33,8 +37,18 @@ const listarNovoSite = (site) => {
 var urlsBlockList = [];
 var temosUrls = false;
 
+
 sendBlockList.addEventListener("click", addUrl);
 bloqueador.addEventListener("click", fnBlockTabs);
+
+//Se o usuario digitar enter, a URL sera adicionada
+textInputBlockList.addEventListener("keypress", 
+function(event){
+    if(event.key === "Enter"){
+        event.preventDefault();
+        addUrl()
+    }
+})
 
 //CONTADOR PARA ANALISAR ESTADO DO BOTÃO DO BLOQUEADOR DE GUIA
 var contBloqueadorDeGuia = -1;
@@ -61,6 +75,8 @@ function fnBlockTabs() {
         chrome.runtime.sendMessage({ modo: "bloqueadorDesativado" });
     }
 }
+
+
 
 
 async function addUrl() {
