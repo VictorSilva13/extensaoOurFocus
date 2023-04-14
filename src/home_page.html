@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,6 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.min.css">
     <title>Home Page</title>
 </head>
+
 <body>
     <audio src="audios/notificacao.mp3" id="notificacao" style="display: none;"></audio>
 
@@ -23,9 +25,21 @@
         <button class="pomodoro2-btn" id="p2.0">Experimentar Pomodoro 2.0</button>
     </div>
 
+    <table id="selfSabotage" class="tabela-sabotage">
+        <thead>
+            <tr>
+                <th>URL</th>
+                <th>Tentativas de Acesso</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
     <script src="pomodoro.js"></script>
     <script src="sweetalert2.min.js"></script>
-    
-    
+    <script src="self-sabotage.js"></script>
+
 </body>
+
 </html>

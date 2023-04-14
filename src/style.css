@@ -64,4 +64,14 @@ button:hover {
 
 .enviarLista {
     background-color: rgb(255, 125, 125);
+
+}
+
+.tabela-sabotage{
+    width : '100%';
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 14px;
+    border-collapse: collapse;
+    margin-top: 20px;
+
 }
