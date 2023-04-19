@@ -28,7 +28,7 @@ const listarNovoSite = (site) => {
 
     const text = document.createTextNode(site);
     coluna.appendChild(text);
-    coluna.appendChild(imgLixo);
+    //coluna.appendChild(imgLixo);
     linha.appendChild(coluna);
     tabelaBlockList.appendChild(linha);
 

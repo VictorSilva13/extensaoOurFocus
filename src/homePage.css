@@ -119,8 +119,22 @@ button:hover {
 
 
 .pomodoro2-btn {
+    width: 180px;
+    height: 60px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 20px;
+    border-radius: 8px;
+    text-align: center;
+
     background-color: black;
-    position: flex;
+
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
 }
 
 .menu {
