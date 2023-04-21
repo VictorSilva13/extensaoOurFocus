@@ -10,6 +10,7 @@ var listaSabotage = [];
 let updated = false;
 obterDadosArmazenados();
 
+
 chrome.action.setPopup({ popup: 'popup.html' });
 
 
@@ -48,6 +49,7 @@ chrome.runtime.onMessage.addListener(
       console.log(listaUrlsBL);
       isBlockListAtivo = true; //FALTA ADICIONAR O BOTAO DE ENCERRAR O BLOCKLIST
       isBloqueadorDeGuiaAtivo = false;
+      isWhiteListAtivo = false;
 
     } else if (request.modo === "blockListDesativado") { //FALTA ADICIONAR ESSE MODO NO SCRIPT.JS
       isBloqueadorDeGuiaAtivo = false;
@@ -116,8 +118,10 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
     }, 1500);
   } else if (isBlockListAtivo === true) {
     executarBlockList(listaUrlsBL, tab);
-  } else if(isWhiteListAtivo === true){
+    console.log("EXECUTANDO BLOCKLIST");
+  } else if (isWhiteListAtivo === true) {
     executarWhiteList(listaUrlsWL, tab);
+    console.log("EXECUTANDO WHITELIST");
   }
 
 
@@ -175,7 +179,7 @@ async function bloqueadorDeGuias(tab, tabId) {
 function executarBlockList(lista, tab) {
   if (listaUrlsBL.length != 0) {
     for (let index = 0; index < lista.length; index++) {
-      if (tab.url.includes(lista[index]) && !tab.url.includes("newtab")) {
+      if (tab.url.includes(lista[index])) {
         setTimeout(function () {
           chrome.tabs.remove(tab.id);
         }, 1000);
@@ -188,15 +192,21 @@ function executarBlockList(lista, tab) {
 //FUNÇÃO PARA WHITE LIST
 function executarWhiteList(lista, tab) {
   if (listaUrlsWL.length != 0) {
+    console.log(listaUrlsWL);
+    let correspondeURL = false;
     for (let index = 0; index < lista.length; index++) {
-      if (!tab.url.includes(lista[index]) && !tab.url.includes("newtab") && !tab.url.includes("extension")) {
-        setTimeout(function () {
-          chrome.tabs.remove(tab.id);
-        }, 1000);
+      if (tab.url.includes(lista[index]) || (tab.url.includes("newtab") || tab.url.includes("extension"))) {
+        console.log("O link da WhiteList é o mesmo que este" + tab.url);
+        correspondeURL = true;
+        break;
       }
     }
+    if (!correspondeURL) {
+      chrome.tabs.remove(tab.id);
+    }
   }
-}
+} 
+
 
 //FUNÇÃO PARA ARMAZENAR URLs DO SELF-SABOTAGE
 function armazenarURL(url) {

@@ -153,7 +153,7 @@ async function addUrl(tipoLista) {
 
 
             } else {
-                urlsBlockList.push(textInputWhiteList.value);
+                urlsWhiteList.push(textInputWhiteList.value);
                 listarNovoSite(textInputWhiteList.value, tipoLista);
 
             }
