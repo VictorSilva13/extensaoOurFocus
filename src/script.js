@@ -1,6 +1,6 @@
 const bloqueador = document.getElementById("bloquear");
 const messagemInicial = document.getElementById("opcaoAtivada");
-
+const sair = document.getElementById("sair");
 
 const botaoMostrarBlockList = document.getElementById("blocklist");
 const abaBlockList = document.getElementById("aba-blockList");
@@ -16,6 +16,10 @@ const sendWhiteList = document.getElementById("enviarWL");
 //Tabela do popup na aba blocklist
 const tabelaBlockList = document.getElementById("tabela-blockList");
 const tabelaWhiteList = document.getElementById("tabela-whiteList");
+
+sair.addEventListener("click", function(){
+    window.close();
+})
 
 //Carrega a lista de sites da variavel UrlsBlockList
 function carregarLista(tipoLista) {
@@ -51,6 +55,7 @@ function listarNovoSite (site, tipo){
     }
 
 }
+
 
 var urlsBlockList = [];
 var temosUrls = false;

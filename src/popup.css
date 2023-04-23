@@ -132,7 +132,8 @@
 
 }
 
-#entradaBlockList {
+#entradaBlockList,
+#entradaWhiteList {
 
     font-family: 'Inter';
     font-style: normal;
@@ -146,6 +147,7 @@
     border-radius: 2px;
 
 }
+
 
 .enviarLista {
     width: 50px;
@@ -166,6 +168,22 @@
 }
 
 #tabela-blockList #linha {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    color: #25282B;
+    justify-content: center;
+
+
+}
+
+#tabela-whiteList {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    color: #25282B;
+    font-weight: 100;
+}
+
+#tabela-whiteList #linha {
     font-family: 'Inter', sans-serif;
     font-size: 10px;
     color: #25282B;
