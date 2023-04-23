@@ -3,10 +3,13 @@ var url = ""
 var id = 0
 var isBloqueadorDeGuiaAtivo = false //true para ativado e false para desativado
 var isBlockListAtivo = false
-var listaUrls = [];
+var isWhiteListAtivo = false
+var listaUrlsBL = [];
+var listaUrlsWL = [];
 var listaSabotage = [];
 let updated = false;
 obterDadosArmazenados();
+
 
 chrome.action.setPopup({ popup: 'popup.html' });
 
@@ -36,27 +39,50 @@ chrome.runtime.onMessage.addListener(
     } else if (request.modo === "blockListAtivado") {
 
       for (let index = 0; index < request.urls.length; index++) {
-        if (listaUrls.includes(request.urls[index])) {//SE A LISTA NO BACKGROUND JÁ TIVER O URL, NÃO FAZ NADA
+        if (listaUrlsBL.includes(request.urls[index])) {//SE A LISTA NO BACKGROUND JÁ TIVER O URL, NÃO FAZ NADA
           console.log("Já temos esse url salvo aqui");
         } else {//SE A LISTA NO BACKGROUND NÃO O TIVER, ADICIONA
-          listaUrls.push(request.urls[index]);
+          listaUrlsBL.push(request.urls[index]);
         }
       }
 
-      console.log(listaUrls);
+      console.log(listaUrlsBL);
       isBlockListAtivo = true; //FALTA ADICIONAR O BOTAO DE ENCERRAR O BLOCKLIST
       isBloqueadorDeGuiaAtivo = false;
+      isWhiteListAtivo = false;
 
     } else if (request.modo === "blockListDesativado") { //FALTA ADICIONAR ESSE MODO NO SCRIPT.JS
       isBloqueadorDeGuiaAtivo = false;
       isBlockListAtivo = false;
 
+    } else if (request.modo === "whiteListAtivado") {
+      for (let index = 0; index < request.urls.length; index++) {
+        if (listaUrlsWL.includes(request.urls[index])) {//SE A LISTA NO BACKGROUND JÁ TIVER O URL, NÃO FAZ NADA
+          console.log("Já temos esse url salvo aqui");
+        } else {//SE A LISTA NO BACKGROUND NÃO O TIVER, ADICIONA
+          listaUrlsWL.push(request.urls[index]);
+        }
+      }
+
+      console.log(listaUrlsWL);
+      isBlockListAtivo = false; //FALTA ADICIONAR O BOTAO DE ENCERRAR O BLOCKLIST
+      isBloqueadorDeGuiaAtivo = false;
+      isWhiteListAtivo = true;
+
     } else if (request.pergunta === "listaBlockList") {
 
-      if (listaUrls.length === 0) { //NÃO TEMOS URLS ARMAZENADOS NO BACKGROUND
+      if (listaUrlsBL.length === 0) { //NÃO TEMOS URLS ARMAZENADOS NO BACKGROUND
         sendResponse({ devolverUrls: "vazio" });
       } else {//TEMOS URLS ARMAZENADOS NO BACKGROUND
-        sendResponse({ devolverUrls: listaUrls });
+        sendResponse({ devolverUrls: listaUrlsBL });
+      }
+
+    } else if (request.pergunta === "listaWhiteList") {
+
+      if (listaUrlsWL.length === 0) {
+        sendResponse({ devolverUrlsWL: "vazio" });
+      } else {
+        sendResponse({ devolverUrlsWL: listaUrlsWL });
       }
 
     }
@@ -80,23 +106,25 @@ chrome.storage.onChanged.addListener(function (changes, areaName) {
 
 
 
-chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   if (!updated && changeInfo.status === 'complete') {
     if (isBloqueadorDeGuiaAtivo === true) {//SE O BLOQUEADOR ESTIVER ATIVADO
       bloqueadorDeGuias(tab, tabId);
-  
-    } else {
-      if (isBlockListAtivo === true) {
-        executarBlockList(listaUrls, tab);
-      } else {
-  
-      }
     }
     updated = true;
-    setTimeout(function() {
+
+    setTimeout(function () {
       updated = false;
-    }, 2500);
+    }, 1500);
+  } else if (isBlockListAtivo === true) {
+    executarBlockList(listaUrlsBL, tab);
+    console.log("EXECUTANDO BLOCKLIST");
+  } else if (isWhiteListAtivo === true) {
+    executarWhiteList(listaUrlsWL, tab);
+    console.log("EXECUTANDO WHITELIST");
   }
+
+
 });
 
 
@@ -149,7 +177,7 @@ async function bloqueadorDeGuias(tab, tabId) {
 
 //FUNÇÃO PARA BLOCK LIST
 function executarBlockList(lista, tab) {
-  if (listaUrls.length != 0) {
+  if (listaUrlsBL.length != 0) {
     for (let index = 0; index < lista.length; index++) {
       if (tab.url.includes(lista[index])) {
         setTimeout(function () {
@@ -159,6 +187,25 @@ function executarBlockList(lista, tab) {
     }
   }
 }
+
+
+//FUNÇÃO PARA WHITE LIST
+function executarWhiteList(lista, tab) {
+  if (listaUrlsWL.length != 0) {
+    console.log(listaUrlsWL);
+    let correspondeURL = false;
+    for (let index = 0; index < lista.length; index++) {
+      if (tab.url.includes(lista[index]) || (tab.url.includes("newtab") || tab.url.includes("extension"))) {
+        console.log("O link da WhiteList é o mesmo que este" + tab.url);
+        correspondeURL = true;
+        break;
+      }
+    }
+    if (!correspondeURL) {
+      chrome.tabs.remove(tab.id);
+    }
+  }
+} 
 
 
 //FUNÇÃO PARA ARMAZENAR URLs DO SELF-SABOTAGE
