@@ -72,7 +72,8 @@ function atualizarTemporizador() {
 
 iniciarBotao.addEventListener("click", function () {
     
-    pomodoro2.style.display = "none";
+    //pomodoro2.style.display = "none";
+    pomodoro2.style.visibility = "hidden";
 
     if (!iniciado) {
         if (tempoPausado == tempo) {
@@ -105,7 +106,7 @@ desistirBotao.addEventListener("click", async function desistir() {
     // Realiza ação com base na escolha do usuário
     if (escolha === 'opcao1') {
         clearInterval(intervalo);
-        pomodoro2.style.display = "block";
+        pomodoro2.style.visibility = "visible";
         console.log("DESISTIU");
         if (momentoPausa === true) {
             console.log("O tempo de pausa é de grande importância para que você tenha sucesso");
@@ -132,11 +133,11 @@ desistirBotao.addEventListener("click", async function desistir() {
 function exibirAlertaDesistencia() {
     return new Promise((resolve, reject) => {
         Swal.fire({
-            title: 'Desistir Agora ???',
+            title: 'Desistir Agora?',
             showCancelButton: true,
             position: 'top-end',
             confirmButtonText: 'Desistir',
-            cancelButtonText: 'Ficar aqui'
+            cancelButtonText: 'Permanecer'
         }).then((result) => {
             if (result.value) {
                 resolve('opcao1');
@@ -168,7 +169,7 @@ pomodoro2.addEventListener("click", function () {
         pausaLongaTempo = 21 * 60;
 
         atualizarTemporizador();
-        pomodoro2.innerHTML = `Experimentar Pomodoro Padrão`;
+        pomodoro2.innerHTML = `Padrão`;
     } else {
         isPomodoroPadrao = true;
 
@@ -186,7 +187,7 @@ pomodoro2.addEventListener("click", function () {
         pausaCurtaTempo = 5 * 60;
         pausaLongaTempo = 15 * 60;
         atualizarTemporizador();
-        pomodoro2.innerHTML = `Experimentar Pomodoro 2.0`;
+        pomodoro2.innerHTML = `Pomodoro 2.0`;
 
     }
 
