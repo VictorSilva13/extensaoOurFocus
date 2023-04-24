@@ -47,11 +47,12 @@ chrome.runtime.onMessage.addListener(
       }
 
       console.log(listaUrlsBL);
-      isBlockListAtivo = true; //FALTA ADICIONAR O BOTAO DE ENCERRAR O BLOCKLIST
+      isBlockListAtivo = true; 
+      console.log("Modo block list ativado!");
       isBloqueadorDeGuiaAtivo = false;
       isWhiteListAtivo = false;
 
-    } else if (request.modo === "blockListDesativado") { //FALTA ADICIONAR ESSE MODO NO SCRIPT.JS
+    } else if (request.modo === "blockListDesativado") { 
       isBloqueadorDeGuiaAtivo = false;
       isBlockListAtivo = false;
 
@@ -68,6 +69,7 @@ chrome.runtime.onMessage.addListener(
       isBlockListAtivo = false; //FALTA ADICIONAR O BOTAO DE ENCERRAR O BLOCKLIST
       isBloqueadorDeGuiaAtivo = false;
       isWhiteListAtivo = true;
+      console.log("WhiteList Ativado!");
 
     } else if (request.pergunta === "listaBlockList") {
 

@@ -34,14 +34,14 @@
         <div class="conteudoModo">
             <div class="toggle">
                 <label class="toggle-bloqueador">
-                    <input type="checkbox" id="input">
+                    <input type="checkbox" id="inputBloqueador">
                     <span class="slider round"></span>
+                </label>
             </div>
-            <div class="subtituloModo">
-                Bloqueador de guia
+            <div id="subtituloModo">
+                    Bloqueador de guia      
             </div>
         </div>
-
     </div>
 
     <div id="aba-blockList" style="display: none;">
@@ -52,9 +52,25 @@
         <table id="tabela-blockList">
             <tr id="linhaBL">
                 <th>Site</th>
+                <th>Ação</th>
             </tr>
         </table>
+
+        <div class="tituloModo">
+            Deseja ativar o Block List?
+        </div>
+        <div class="conteudoModo">
+            <div class="toggle">
+                <label class="toggle-blockList">
+                    <input type="checkbox" id="inputBlockList">
+                    <span class="slider round"></span>
+            </div>
+            <div id="subtituloModoBlockList">
+                Block List
+            </div>
+        </div>
     </div>
+
 
     <div id="aba-whitelist" style="display: none;">
         <div id="campo-input-whitelist">
@@ -64,8 +80,23 @@
         <table id="tabela-whiteList">
             <tr id="linhaWL">
                 <th>Site</th>
+                <th>Ação</th>
             </tr>
         </table>
+        <div class="tituloModo">
+            Deseja ativar a White List?
+        </div>
+
+        <div class="conteudoModo">
+            <div class="toggle">
+                <label class="toggle-whiteList">
+                    <input type="checkbox" id="inputWhiteList">
+                    <span class="slider round"></span>
+            </div>
+            <div id="subtituloModoWhiteList">
+                White List
+            </div>
+        </div>
     </div>
 
 
