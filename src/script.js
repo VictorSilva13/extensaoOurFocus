@@ -1,13 +1,18 @@
+//Aba Bloqueador
 const bloqueador = document.getElementById("bloquear");
+const inputBloqueador = document.getElementById("input");
+inputBloqueador.addEventListener("click", fnBlockTabs);
+const abaBloqueador = document.getElementById("aba-bloqueador");
 const messagemInicial = document.getElementById("opcaoAtivada");
 const sair = document.getElementById("sair");
 
+//Aba BlockList
 const botaoMostrarBlockList = document.getElementById("blocklist");
 const abaBlockList = document.getElementById("aba-blockList");
 const textInputBlockList = document.getElementById("entradaBlockList");
 const sendBlockList = document.getElementById("enviarBL");
 
-
+//Aba WhiteList
 const botaoMostrarWhiteList = document.getElementById("whitelist");
 const abaWhiteList = document.getElementById("aba-whitelist");
 const textInputWhiteList = document.getElementById("entradaWhiteList");
@@ -17,7 +22,7 @@ const sendWhiteList = document.getElementById("enviarWL");
 const tabelaBlockList = document.getElementById("tabela-blockList");
 const tabelaWhiteList = document.getElementById("tabela-whiteList");
 
-sair.addEventListener("click", function(){
+sair.addEventListener("click", function () {
     window.close();
 })
 
@@ -27,7 +32,7 @@ function carregarLista(tipoLista) {
         urlsBlockList.forEach(site => {
             listarNovoSite(site, "BL");
         });
-    }else{
+    } else {
         urlsWhiteList.forEach(site => {
             listarNovoSite(site, "WL");
         });
@@ -36,7 +41,7 @@ function carregarLista(tipoLista) {
 }
 
 //Mostra novo site dentro da tabela do popup na aba BlockList
-function listarNovoSite (site, tipo){
+function listarNovoSite(site, tipo) {
     const linha = document.createElement("tr");
     const coluna = document.createElement("th");
 
@@ -67,7 +72,7 @@ sendWhiteList.addEventListener("click", function () {
     addUrl("WL");
 });
 
-bloqueador.addEventListener("click", fnBlockTabs);
+
 
 //Se o usuario digitar enter, a URL sera adicionada
 textInputBlockList.addEventListener("keypress",
@@ -102,7 +107,7 @@ chrome.runtime.sendMessage({ pergunta: "estadoBloqueadorFechado" }, function (re
 });
 
 function fnBlockTabs() {
-    contBloqueadorDeGuia++
+    contBloqueadorDeGuia++;
 
     if (contBloqueadorDeGuia % 2 === 0) {
         messagemInicial.innerHTML = `Bloqueador de Guia Ativado! <br> <h4>Pressione F5 na página que deseja focar.</h4>`;
@@ -173,6 +178,20 @@ async function addUrl(tipoLista) {
     }
 }
 
+bloqueador.addEventListener("click", function () {
+
+   //Mostrar/ocultar Bloqueador de guia
+    if (abaBloqueador.style.display === "none") {
+        abaBloqueador.style.display = "flex"
+        abaBlockList.style.display = "none";
+        abaWhiteList.style.display = "none";
+    } else {
+        abaBlockList.style.display = "none";
+        abaWhiteList.style.display = "none";
+        abaBloqueador.style.display = "none";
+    }
+})
+
 var contadorBL = -1;
 
 //ADICIONAR UM OUVINTE DE EVENTO DE CLIQUE AO BOTÃO
@@ -195,11 +214,14 @@ botaoMostrarBlockList.addEventListener("click", function () {
     });
     //EXIBIR OU OCULTAR O CAMPO DE ENTRADA
     if (abaBlockList.style.display === "none") {
-        abaBlockList.style.display = "block";
+        abaBlockList.style.display = "flex";
         abaWhiteList.style.display = "none";
+        //Ocultar Bloqueador de guia
+        abaBloqueador.style.display = "none";
     } else {
         abaBlockList.style.display = "none";
         abaWhiteList.style.display = "none";
+        abaBloqueador.style.display = "none";
     }
 });
 
@@ -227,12 +249,15 @@ botaoMostrarWhiteList.addEventListener("click", function () {
 
     //EXIBIR OU OCULTAR O CAMPO DE ENTRADA
     if (abaWhiteList.style.display === "none") {
-        abaWhiteList.style.display = "block";
+        abaWhiteList.style.display = "flex";
         abaBlockList.style.display = "none";
+        //Ocultar Bloqueador de guia
+        abaBloqueador.style.display = "none";
 
     } else {
         abaWhiteList.style.display = "none";
         abaBlockList.style.display = "none";
+        abaBloqueador.style.display = "none";
     }
 });
 

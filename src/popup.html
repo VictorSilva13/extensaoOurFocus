@@ -18,13 +18,30 @@
     <div class="popup">
         <img class="logomarca" src="img/logomarca.png" alt="Our Focus">
         <div class="botoes">
-                <button class="bloqueador-btn" id="bloquear">Bloquear Guia</button>
-                <div class="separador">|</div>
-                <button class="blocklist-btn" id="blocklist">Block List</button>
-                <div class="separador">|</div>
-                <button class="whitelist-btn" id="whitelist">White List</button>
+            <button class="bloqueador-btn" id="bloquear">Bloquear Guia</button>
+            <div class="separador">|</div>
+            <button class="blocklist-btn" id="blocklist">Block List</button>
+            <div class="separador">|</div>
+            <button class="whitelist-btn" id="whitelist">White List</button>
 
+        </div>
+    </div>
+
+    <div id="aba-bloqueador" style="display: none;">
+        <div class="tituloModo">
+            Deseja ativar o bloqueador de guia?
+        </div>
+        <div class="conteudoModo">
+            <div class="toggle">
+                <label class="toggle-bloqueador">
+                    <input type="checkbox" id="input">
+                    <span class="slider round"></span>
             </div>
+            <div class="subtituloModo">
+                Bloqueador de guia
+            </div>
+        </div>
+
     </div>
 
     <div id="aba-blockList" style="display: none;">
@@ -50,6 +67,7 @@
             </tr>
         </table>
     </div>
+
 
     <hr>
 
