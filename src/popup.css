@@ -1,0 +1,346 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+/*POPUP */
+
+.popup {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px 0px;
+}
+
+.logomarca {
+    width: 240px;
+    height: auto;
+    margin: 0px;
+    padding-bottom: 10px;
+    display: flex;
+    align-self: center;
+
+}
+
+.botoes {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    isolation: isolate;
+    height: 20px;
+    padding: 10px 0px;
+
+
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+
+    -moz-box-sizing: inherit;
+    box-sizing: inherit;
+    -webkit-transition-property: all;
+    transition-property: all;
+    -webkit-transition-duration: .6s;
+    transition-duration: .6s;
+    -webkit-transition-timing-function: ease;
+    transition-timing-function: ease;
+
+}
+
+.botoes .separador {
+
+    margin-bottom: 5px;
+    color: #838383;
+
+}
+
+.botoes .bloqueador-btn,
+.botoes .blocklist-btn,
+.botoes .whitelist-btn {
+    background-color: white;
+    color: #838383;
+    letter-spacing: 0;
+    font-family: 'Inter';
+    font-style: normal;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.botoes .bloqueador-btn:after,
+.botoes .bloqueador-btn:before,
+.botoes .blocklist-btn:after,
+.botoes .blocklist-btn:before,
+.botoes .whitelist-btn:after,
+.botoes .whitelist-btn:before {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border: 1px solid white;
+    bottom: 0px;
+    content: " ";
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    -webkit-transition: all 280ms ease-in-out;
+    transition: all 280ms ease-in-out;
+    width: 0;
+}
+
+
+.botoes .bloqueador-btn:hover:after,
+.botoes .bloqueador-btn:hover:before,
+.botoes .blocklist-btn:hover:after,
+.botoes .blocklist-btn:hover:before,
+.botoes .whitelist-btn:hover:after,
+.botoes .whitelist-btn:hover:before {
+    border-color: #6425FE;
+    -webkit-transition: width 350ms ease-in-out;
+    transition: width 350ms ease-in-out;
+    width: 100%;
+
+}
+
+.botoes .bloqueador-btn:hover:before,
+.botoes .listlist-btn:hover:before,
+.botoes .whitelist-btn:hover:before {
+    buttom: auto;
+    top: 0;
+    width: 100%;
+}
+
+.botoes .bloqueador-btn:active,
+.botoes .bloqueador-btn:hover,
+.botoes .bloqueador-btn:focus,
+.botoes .bloqueador-btn:hover,
+.botoes .blocklist-btn:active,
+.botoes .blocklist-btn:hover,
+.botoes .blocklist-btn:focus,
+.botoes .whitelist-btn:active,
+.botoes .whitelist-btn:hover,
+.botoes .whitelist-btn:focus {
+    border-color: #6425FE;
+    color: #6425FE;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+.botoes .bloqueador-btn:focus,
+.botoes .blocklist-btn:focus,
+.botoes .whitelist-btn:focus {
+    text-underline-offset: 5px;
+    text-decoration-line: underline;
+    text-decoration-thickness: 2px;
+}
+
+#campo-input-blocklist {
+    padding-bottom: 10px;
+
+}
+
+#entradaBlockList,
+#entradaWhiteList {
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+
+    background: #FFFFFF;
+    border: 0.5px solid #EFE9FF;
+    box-shadow: 0px 1px 1px #EFE9FF;
+    border-radius: 2px;
+
+}
+
+
+.enviarLista {
+    width: 50px;
+    height: 20px;
+
+    background: #6425FE;
+    border-radius: 8px;
+
+    font-family: 'Inter';
+    font-style: normal;
+}
+
+#tabela-blockList {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    color: #25282B;
+    font-weight: 100;
+}
+
+#tabela-blockList #linha {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    color: #25282B;
+    justify-content: center;
+
+
+}
+
+#tabela-whiteList {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    color: #25282B;
+    font-weight: 100;
+}
+
+#tabela-whiteList #linha {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    color: #25282B;
+    justify-content: center;
+
+
+}
+
+html {
+    height: auto;
+    width: 306px;
+    background: #FFFFFF;
+}
+
+
+body {
+    text-align: center;
+}
+
+button {
+    border: none;
+    height: 3em;
+    color: white;
+
+}
+
+button:ver {
+    cursor: pointer;
+}
+
+.menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-top: 20px;
+    gap: 200px;
+}
+
+.home-btn,
+.sair-btn {
+    display: flex;
+    background-color: white;
+}
+
+.home-btn:hover,
+.sair-btn:hover {
+    cursor: pointer;
+
+}
+
+
+.home-btn:hover {
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    background-image: url('img/vectorHomeClicado.png') no-repeat;
+
+}
+
+#aba-bloqueador, 
+#aba-blockList,
+#aba-whitelist {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2px;
+    gap: 17px;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 100;
+}
+
+#aba-blockList #tabela-blockList button,
+#aba-whitelist #tabela-whiteList button{
+    background-color: white;
+
+}
+
+.tituloModo {
+    color: #333333;
+}
+
+.conteudoModo {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    color:  #84828A;
+}
+
+
+
+
+/*toogle bloqueador*/
+.toggle {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider.round {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked+.slider{
+    background-color: rgb(100, 37, 254);
+      
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px#6425FE;
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+
+
+
+#imgSair,
+#imgHome {
+    width: 18px;
+    height: auto;
+}

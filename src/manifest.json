@@ -1,13 +1,22 @@
 {
-    "name": "Our extension!!!",
+    "name": "Our Focus",
     "version": "0.0.1",
-    "description": "Extensão para pessoas focadas",
+    "description": "Evite distrações! Mantenha o foco! Ganhe tempo!",
     "manifest_version": 3,
     "author": "Grupo 3 - Engenharia de Software - POLI 2022.2",
-
+    "permissions":[
+        "tabs",
+        "storage"
+    ],
+    "background":{
+        "service_worker": "background.js"
+    },
+    "icons":{
+        "48": "img/icon_of.png"
+    },
     "action": {
-        "default_popup": "index.html",
-        "default_title": "Our Extension"
+        "default_popup": "popup.html",
+        "default_title": "Our Focus"
     }
 
 }

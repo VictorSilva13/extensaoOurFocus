@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="popup.css">
+    <title>Our Focus</title>
+
+</head>
+
+<body>
+
+    <div class="menu">
+        <button class="home-btn" id="home"><img src="img/vectorHome.png" id="imgHome"></button>
+        <button class="sair-btn" id="sair"><img src="img/vectorSair.png" id="imgSair"></button>
+    </div>
+    <script src="home.js"></script>
+    <div class="popup">
+        <img class="logomarca" src="img/logomarca.png" alt="Our Focus">
+        <div class="botoes">
+            <button class="bloqueador-btn" id="bloquear">Bloquear Guia</button>
+            <div class="separador">|</div>
+            <button class="blocklist-btn" id="blocklist">Block List</button>
+            <div class="separador">|</div>
+            <button class="whitelist-btn" id="whitelist">White List</button>
+
+        </div>
+    </div>
+
+    <div id="aba-bloqueador" style="display: none;">
+        <div class="tituloModo" id="desejoTitle">
+            Deseja ativar o bloqueador de guia?
+        </div>
+        <div class="conteudoModo">
+            <div class="toggle">
+                <label class="toggle-bloqueador">
+                    <input type="checkbox" id="inputBloqueador">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            <div id="subtituloModo">
+                    Bloqueador de guia      
+            </div>
+        </div>
+    </div>
+
+    <div id="aba-blockList" style="display: none;">
+        <div id="campo-input-blocklist">
+            <input type="text" id="entradaBlockList" placeholder="Ex: instagram.com">
+            <button class="enviarLista" id="enviarBL">Enviar</button>
+        </div>
+        <table id="tabela-blockList">
+            <tr id="linhaBL">
+                <th>Site</th>
+                <th>Ação</th>
+            </tr>
+        </table>
+
+        <div class="tituloModo" id="desejoTitleBL">
+            Deseja ativar o Block List?
+        </div>
+        <div class="conteudoModo">
+            <div class="toggle">
+                <label class="toggle-blockList">
+                    <input type="checkbox" id="inputBlockList">
+                    <span class="slider round"></span>
+            </div>
+            <div id="subtituloModoBlockList">
+                Block List
+            </div>
+        </div>
+    </div>
+
+
+    <div id="aba-whitelist" style="display: none;">
+        <div id="campo-input-whitelist">
+            <input type="text" id="entradaWhiteList" placeholder="Ex: www.coursera.org">
+            <button class="enviarLista" id="enviarWL">Enviar</button>
+        </div>
+        <table id="tabela-whiteList">
+            <tr id="linhaWL">
+                <th>Site</th>
+                <th>Ação</th>
+            </tr>
+        </table>
+        <div class="tituloModo" id="desejoTitleWL">
+            Deseja ativar a White List?
+        </div>
+
+        <div class="conteudoModo">
+            <div class="toggle">
+                <label class="toggle-whiteList">
+                    <input type="checkbox" id="inputWhiteList">
+                    <span class="slider round"></span>
+            </div>
+            <div id="subtituloModoWhiteList">
+                White List
+            </div>
+        </div>
+    </div>
+
+
+    <hr>
+
+    <div>
+        <h2>Vamos focar?</h2>
+        <h3 id="opcaoAtivada"></h3>
+    </div>
+
+    <script src="script.js"></script>
+
+
+</body>
+
+</html>
