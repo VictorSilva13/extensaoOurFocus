@@ -47,11 +47,12 @@ chrome.runtime.onMessage.addListener(
       }
 
       console.log(listaUrlsBL);
-      isBlockListAtivo = true; //FALTA ADICIONAR O BOTAO DE ENCERRAR O BLOCKLIST
+      isBlockListAtivo = true; 
+      console.log("Modo block list ativado!");
       isBloqueadorDeGuiaAtivo = false;
       isWhiteListAtivo = false;
 
-    } else if (request.modo === "blockListDesativado") { //FALTA ADICIONAR ESSE MODO NO SCRIPT.JS
+    } else if (request.modo === "blockListDesativado") { 
       isBloqueadorDeGuiaAtivo = false;
       isBlockListAtivo = false;
 
@@ -68,23 +69,34 @@ chrome.runtime.onMessage.addListener(
       isBlockListAtivo = false; //FALTA ADICIONAR O BOTAO DE ENCERRAR O BLOCKLIST
       isBloqueadorDeGuiaAtivo = false;
       isWhiteListAtivo = true;
+      console.log("WhiteList Ativado!");
+
+    } else if(request.modo === "whiteListDesativado"){
+      
+      isWhiteListAtivo = false;
+      isBlockListAtivo = false;
+      isBloqueadorDeGuiaAtivo = false;
 
     } else if (request.pergunta === "listaBlockList") {
 
       if (listaUrlsBL.length === 0) { //NÃO TEMOS URLS ARMAZENADOS NO BACKGROUND
-        sendResponse({ devolverUrls: "vazio" });
+        sendResponse({ devolverUrls: "vazio" , isAtivo: isBlockListAtivo});
       } else {//TEMOS URLS ARMAZENADOS NO BACKGROUND
-        sendResponse({ devolverUrls: listaUrlsBL });
+        sendResponse({ devolverUrls: listaUrlsBL, isAtivo: isBlockListAtivo});
       }
 
     } else if (request.pergunta === "listaWhiteList") {
 
       if (listaUrlsWL.length === 0) {
-        sendResponse({ devolverUrlsWL: "vazio" });
+        sendResponse({ devolverUrlsWL: "vazio" , isAtivo: isWhiteListAtivo});
       } else {
-        sendResponse({ devolverUrlsWL: listaUrlsWL });
+        sendResponse({ devolverUrlsWL: listaUrlsWL, isAtivo: isWhiteListAtivo });
       }
 
+    } else if(request.modo === "atualizarBL"){
+      listaUrlsBL = request.urls;
+    } else if(request.modo === "atualizarWL"){
+      listaUrlsWL = request.urls;
     }
     if (request.action == "getSelfSabotage") { //O SOLICITANTE QUER RECEBER A LISTA DO SABOTAGE
       sendResponse({ retorno: listaSabotage });
