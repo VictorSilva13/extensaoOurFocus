@@ -24,6 +24,9 @@ const ativaWhiteList = document.getElementById("inputWhiteList");
 const tabelaBlockList = document.getElementById("tabela-blockList");
 const tabelaWhiteList = document.getElementById("tabela-whiteList");
 
+//Pergunta interativa de cada função
+const desejoTitle = document.getElementById("desejoTitle");
+
 sair.addEventListener("click", function () {
     window.close();
 })
@@ -50,10 +53,11 @@ function listarNovoSite(site, tipo) {
     const coluna2 = document.createElement("td");
     var botao = document.createElement("button");
     botao.id = "botaoExcluirURL";
-    botao.title = "botaoExcluirURL";
+    botao.title = "Excluir URL";
     botao.innerHTML = '<img src= "img/lixo.png"/>';
-    botao.onclick = excluirSite(site);
-    //botao.addEventListener("click", excluirSite(site));
+    botao.addEventListener("click", function () {
+        excluirSite(site, tipo);
+    });
 
     const text = document.createTextNode(site);
     coluna.appendChild(text);
@@ -70,30 +74,45 @@ function listarNovoSite(site, tipo) {
 
 }
 
-function excluirSite(site) {
+function excluirSite(site, tipo) {
     var index = -1;
-    var linhas = tabelaBlockList.rows;
+
+
+    if(tipo === "BL"){
+        var linhas = tabelaBlockList.rows;
+    }else{
+        var linhas = tabelaWhiteList.rows;
+    }
+
+
     for (var i = 0; i < linhas.length; i++) {
-        if (linhas[i] == site) {
+        if (linhas[i].cells[0].textContent === site) {
             index = i;
             break;
         }
     }
-    console.log("Excluir Site: " + site);
-    console.log(index);
-    if (index != -1) {
 
-        tabelaBlockList.deleteRow(index);
-        urlsBlockList.pop(site);
+    console.log("Excluir Site: " + site);
+    console.log("Index: " + index);
+    //console.log("Antes de remover: " + urlsBlockList);
+
+    if (index !== -1) {
+        
+        if(tipo === "BL"){
+            tabelaBlockList.deleteRow(index);
+            urlsBlockList.splice(index-1, 1);
+            chrome.runtime.sendMessage({ modo: "atualizarBL", urls: urlsBlockList });
+        }else{
+            tabelaWhiteList.deleteRow(index);
+            urlsWhiteList.splice(index-1, 1);
+            chrome.runtime.sendMessage({ modo: "atualizarWL", urls: urlsWhiteList });
+        }
+        
     }
 
-    //let tabela = document.querySelector("#tabela-whiteList");
-    //tabela
+    //console.log("Depois de remover: " + urlsBlockList);
+
 }
-
-
-
-
 
 var urlsBlockList = [];
 var temosUrls = false;
@@ -104,7 +123,6 @@ sendBlockList.addEventListener("click", function () {
 sendWhiteList.addEventListener("click", function () {
     addUrl("WL");
 });
-
 
 
 //Se o usuario digitar enter, a URL sera adicionada
@@ -133,8 +151,11 @@ chrome.runtime.sendMessage({ pergunta: "estadoBloqueadorFechado" }, function (re
     if (response.estadoAfterClosed === "EstavaAtivado") {
         contBloqueadorDeGuia = 0
         inputBloqueador.checked = true;
-        messagemInicial.innerHTML = `Bloqueador de Guia Ativado! <br> <h4>Pressione F5 na página que deseja focar.</h4>`;
+        ativaBlockList.checked = false;
+        ativaWhiteList.checked = false;
+        messagemInicial.innerHTML = `Bloqueador de Guia Ativado! <br> <h4>Lembre-se de pressionar F5 na página que deseja focar.</h4>`;
     } else {
+        inputBloqueador.checked = false;
         messagemInicial.innerHTML = ``;
         contBloqueadorDeGuia = -1
     }
@@ -144,11 +165,13 @@ function fnBlockTabs() {
     contBloqueadorDeGuia++;
 
     if (contBloqueadorDeGuia % 2 === 0) {
-        messagemInicial.innerHTML = `Bloqueador de Guia Ativado! <br> <h4>Pressione F5 na página que deseja focar.</h4>`;
+        messagemInicial.innerHTML = `Bloqueador de Guia Ativado! <br> <h4>Lembre-se de pressionar F5 na página que deseja focar.</h4>`;
+        desejoTitle.innerHTML = `Deseja desativar o bloqueador de guia?`
         chrome.runtime.sendMessage({ modo: "bloqueadorAtivado" });
         document.getElementById("subtituloModo").style.color = "#6425FE";
     } else {
         messagemInicial.innerHTML = ``;
+        desejoTitle.innerHTML = `Deseja ativar o bloqueador de guia?`
         chrome.runtime.sendMessage({ modo: "bloqueadorDesativado" });
         document.getElementById("subtituloModo").style.color = "#84828A";
     }
@@ -159,6 +182,9 @@ function fnBlockTabs() {
 
 async function addUrl(tipoLista) {
     if (tipoLista === "BL") {
+        if(ativaBlockList.checked){
+            ativaBlockList.checked = false;
+        }
         if (textInputBlockList.value.length > 2) {
             if (urlsBlockList.length === 0) { //SIGNIFICA QUE AINDA NÃO ATIVOU A FUNCIONALIDADE OU QUE HOUVE UM FECHAMENTO 
 
@@ -183,6 +209,9 @@ async function addUrl(tipoLista) {
 
         textInputBlockList.value = "";
     } else { //CASO SE TRATE DA WHITELIST
+        if(ativaWhiteList.checked){
+            ativaWhiteList.checked = false;
+        }
         if (textInputWhiteList.value.length > 2) {
             if (urlsWhiteList.length === 0) { //SIGNIFICA QUE AINDA NÃO ATIVOU A FUNCIONALIDADE OU QUE HOUVE UM FECHAMENTO 
 
@@ -202,7 +231,7 @@ async function addUrl(tipoLista) {
 
             }
 
-            chrome.runtime.sendMessage({ modo: "whiteListAtivado", urls: urlsWhiteList });
+            //chrome.runtime.sendMessage({ modo: "whiteListAtivado", urls: urlsWhiteList });
         } else {
             console.log("Url digitado não é aceito!");
         }
@@ -212,11 +241,23 @@ async function addUrl(tipoLista) {
     }
 }
 
+
+const desejoBL = document.getElementById("desejoTitleBL");
+
 ativaBlockList.addEventListener("click", function () {
+
     if (ativaBlockList.checked) {
+        inputBloqueador.checked = false;
+        ativaWhiteList.checked = false;
+        if(urlsBlockList.length <= 0){
+            messagemInicial.innerHTML = `Adicione um URL antes de ativar a função!`;
+        }
         chrome.runtime.sendMessage({ modo: "blockListAtivado", urls: urlsBlockList });
         document.getElementById("subtituloModoBlockList").style.color = "#6425FE";
+        desejoBL.innerHTML = `Deseja desativar o Block List?`;
     } else {
+        messagemInicial.innerHTML = ` `;
+        desejoBL.innerHTML = `Deseja ativar o Block List?`;
         chrome.runtime.sendMessage({ modo: "blockListDesativado" })
         document.getElementById("subtituloModoBlockList").style.color = "#84828A";
     }
@@ -241,14 +282,13 @@ var contadorBL = -1;
 
 //ADICIONAR UM OUVINTE DE EVENTO DE CLIQUE AO BOTÃO
 botaoMostrarBlockList.addEventListener("click", function () {
-    //Retira o bloqueador de guia caso saia da aba de bloquear guia
-    if (inputBloqueador.checked === true) {
-        inputBloqueador.checked = false;
-        fnBlockTabs();
-    }
+    messagemInicial.innerHTML = ` `;
 
     contadorBL++;
     chrome.runtime.sendMessage({ pergunta: "listaBlockList" }, function (response) {
+        if (response.isAtivo) {
+            ativaBlockList.checked = true;
+        }
         if (response.devolverUrls != "vazio") {
             temosUrls = true;
             urlsBlockList = response.devolverUrls;
@@ -280,14 +320,13 @@ var urlsWhiteList = [];
 var temosWhiteUrls = false;
 
 botaoMostrarWhiteList.addEventListener("click", function () {
-    //Retira o bloqueador de gui caso saia da aba de bloquear guia
-    if (inputBloqueador.checked === true) {
-        inputBloqueador.checked = false;
-        fnBlockTabs();
-    }
+    messagemInicial.innerHTML = ` `;
     contadorWL++;
 
     chrome.runtime.sendMessage({ pergunta: "listaWhiteList" }, function (response) {
+        if (response.isAtivo) {
+            ativaWhiteList.checked = true;
+        }
         if (response.devolverUrlsWL != "vazio") {
             temosWhiteUrls = true;
             urlsWhiteList = response.devolverUrlsWL;
@@ -316,11 +355,21 @@ botaoMostrarWhiteList.addEventListener("click", function () {
     }
 });
 
+const desejoWL = document.getElementById("desejoTitleWL");
+
 ativaWhiteList.addEventListener("click", function () {
     if (ativaWhiteList.checked) {
-        chrome.runtime.sendMessage({ modo: "whiteListAtivado", urls: urlsBlockList });
+        inputBloqueador.checked = false;
+        ativaBlockList.checked = false;
+        if(!temosWhiteUrls){
+            messagemInicial.innerHTML = `Adicione um URL antes de ativar a função!`;
+        }
+        chrome.runtime.sendMessage({ modo: "whiteListAtivado", urls: urlsWhiteList });
         document.getElementById("subtituloModoWhiteList").style.color = "#6425FE";
+        desejoWL.innerHTML = `Deseja desativar a White List?`;
     } else {
+        messagemInicial.innerHTML = ` `;
+        desejoWL.innerHTML = `Deseja ativar a White List?`;
         chrome.runtime.sendMessage({ modo: "whiteListDesativado" })
         document.getElementById("subtituloModoWhiteList").style.color = "#84828A";
     }
